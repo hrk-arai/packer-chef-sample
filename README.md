@@ -34,8 +34,7 @@
 * リポジトリをクローン
 
 ```
-#TODO URLを追記
-$ git clone https://
+$ git clone https://github.com/hrk-arai/packer-chef-sample
 ```
 
 * packerの動作確認
