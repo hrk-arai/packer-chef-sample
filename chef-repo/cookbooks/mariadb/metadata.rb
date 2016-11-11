@@ -1,0 +1,7 @@
+name 'mariadb'
+maintainer 'The Authors'
+maintainer_email 'you@example.com'
+license 'all_rights'
+description 'Installs/Configures mariadb'
+long_description 'Installs/Configures mariadb'
+version '0.1.0'

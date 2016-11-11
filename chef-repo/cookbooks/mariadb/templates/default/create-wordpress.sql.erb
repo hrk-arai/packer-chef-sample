@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS <%= node["mariadb"]["db_name"] %> DEFAULT CHARACTER SET utf8;
+GRANT ALL PRIVILEGES ON <%= node["mariadb"]["db_name"] %>.* TO <%= node["mariadb"]["db_user"] %>@'%' IDENTIFIED BY '<%= node["mariadb"]["db_password"] %>';

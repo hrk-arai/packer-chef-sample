@@ -1,0 +1,30 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "ap-northeast-1",
+      "subnet_id": "subnet-080f8951",
+      "security_group_id": "sg-e206cf85",
+      "source_ami": "ami-48517b26",
+      "instance_type": "m4.xlarge",
+      "ssh_username": "ec2-user",
+      "ssh_timeout": "10m",
+      "ami_name": "CentOS 7 installed apache(chef) and awscli from packer {{timestamp}}",
+      "ssh_pty" : "true"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "chef-solo",
+      "cookbook_paths": ["../chef-repo/cookbooks"],
+      "run_list": "recipe[apache]",
+      "install_command": "curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v 12.15.19"
+    },
+    { "type": "shell", "inline": ["sudo sed -i 's/^.*requiretty/#Defaults requiretty/' /etc/sudoers"] },
+    { "type": "shell", "inline": ["sudo sed -i -e \"s/^SELINUX=enforcing/SELINUX=disabled/g\" /etc/selinux/config"] },
+    { "type": "shell", "inline": ["sudo yum -y update"] },
+    { "type": "shell", "inline": ["sudo yum -y install python-pip"] },
+    { "type": "shell", "inline": ["sudo pip install awscli"] }
+  ]
+}

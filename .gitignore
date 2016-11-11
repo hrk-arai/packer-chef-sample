@@ -1,0 +1,4 @@
+.ssh
+packer/bin
+chef-repo/.chef
+chef-repo/cookbooks/*/.kitchen

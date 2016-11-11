@@ -1,0 +1,37 @@
+---
+driver:
+  name: ec2
+  aws_ssh_key_id: h-arai
+  region: ap-northeast-1
+  security_group_ids: ["sg-e206cf85"]
+  instance_type: t2.small
+  availability_zone: ap-northeast-1c
+  subnet_id: subnet-080f8951
+
+transport:
+  ssh_key: ../../../.ssh/h-arai.pem
+  connection_timeout: 10
+  connection_retries: 5
+  username: ec2-user
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12.15.19
+
+# Uncomment the following verifier to leverage Inspec instead of Busser (the
+# default verifier)
+# verifier:
+#   name: inspec
+
+platforms:
+  - name: centos-7
+    driver:
+      image_id: ami-48517b26
+
+suites:
+  - name: default
+    run_list:
+      - recipe[mariadb::setup]
+      - recipe[mariadb::configure]
+      - recipe[mariadb::deploy]
+    attributes:
